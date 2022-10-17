@@ -16,7 +16,7 @@ class ChatList extends ConsumerStatefulWidget {
   final String recieverUserId;
   final bool isGroupChat;
 
-  ChatList({
+  const ChatList({
     Key? key,
     required this.recieverUserId,
     required this.isGroupChat,
@@ -119,10 +119,3 @@ class _ChatListState extends ConsumerState<ChatList> {
         });
   }
 }
-
-// class ChatList extends ConsumerWidget {
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-   
-//   }
-// }

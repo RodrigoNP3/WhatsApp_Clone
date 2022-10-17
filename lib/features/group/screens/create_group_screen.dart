@@ -2,18 +2,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_flutter_ui/colors.dart';
+import 'package:whatsapp_flutter_ui/common/utils/colors.dart';
 import 'package:whatsapp_flutter_ui/features/group/controller/group_controller.dart';
 
 import '../../../common/utils/utils.dart';
-import '../repository/group_repository.dart';
+
 import '../widgets/select_contacs_group.dart';
 
 class CreateGroupScreen extends ConsumerStatefulWidget {
+  // ignore: constant_identifier_names
   static const String RouteName = '/create-group';
   const CreateGroupScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CreateGroupScreenState createState() => _CreateGroupScreenState();
 }
 
@@ -23,7 +25,6 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     groupNameController.dispose();
   }

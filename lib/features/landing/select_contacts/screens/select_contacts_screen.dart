@@ -8,12 +8,16 @@ import '../controller/select_contact_controller.dart';
 import '../repository/select_contact_repository.dart';
 
 class SelectContactsScreen extends ConsumerWidget {
+  // ignore: constant_identifier_names
   static const String RouteName = '/select-contact';
 
   const SelectContactsScreen({Key? key}) : super(key: key);
 
   void selectContact(
-      WidgetRef _ref, Contact selectedContact, BuildContext context) {
+      // ignore: no_leading_underscores_for_local_identifiers
+      WidgetRef _ref,
+      Contact selectedContact,
+      BuildContext context) {
     _ref.read(
       Provider(
         (ref) {
@@ -31,12 +35,12 @@ class SelectContactsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select Contact'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(Icons.search),
+        //   ),
+        // ],
       ),
       body: ref.watch(getContactsProvider).when(
             data: (contactList) => ListView.builder(
@@ -45,7 +49,7 @@ class SelectContactsScreen extends ConsumerWidget {
                 final contact = contactList[index];
                 return InkWell(
                   onTap: () {
-                    print(contact.phones);
+                    // print(contact.phones);
                     selectContact(ref, contact, context);
                   },
                   child: Padding(
@@ -62,8 +66,8 @@ class SelectContactsScreen extends ConsumerWidget {
                                 radius: 20,
                               )
                             : const CircleAvatar(
-                                child: Icon(Icons.person),
                                 radius: 20,
+                                child: Icon(Icons.person),
                               )),
                   ),
                 );

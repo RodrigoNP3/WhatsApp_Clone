@@ -8,10 +8,11 @@ import 'dart:io';
 class AppConstants {
   static final List<String> values = [
     GIPHY_API_KEY,
+    baseUrl,
   ];
-  //https://developers.giphy.com/dashboard/?
   // ignore: non_constant_identifier_names
   static String GIPHY_API_KEY = '6v5NxEjpkS4AI8ABvO4it2VGwRzYhwkO';
+  static String baseUrl = 'https://whatsapp-clone-flutter-udemy.herokuapp.com';
 }
 
 showSnackBar({required BuildContext context, required String content}) {
@@ -75,7 +76,9 @@ class Collections {
   static String call = 'call';
 }
 
+// ignore: body_might_complete_normally_nullable
 Future<GiphyGif?> pickGIF(BuildContext context) async {
+  // ignore: unused_local_variable
   GiphyGif? gif;
   try {
     return gif = await Giphy.getGif(

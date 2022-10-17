@@ -14,6 +14,7 @@ class StatusScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _StatusScreenState createState() => _StatusScreenState();
 }
 
@@ -43,14 +44,13 @@ class _StatusScreenState extends State<StatusScreen> {
         ),
       );
     }
-    print(storyItems.length);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Title'),
+        title: Text(widget.status.username),
       ),
       body: storyItems.isEmpty
           ? const Loader()

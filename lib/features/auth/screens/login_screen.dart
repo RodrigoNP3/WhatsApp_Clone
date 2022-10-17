@@ -1,7 +1,7 @@
 import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_flutter_ui/colors.dart';
+import 'package:whatsapp_flutter_ui/common/utils/colors.dart';
 import 'package:whatsapp_flutter_ui/common/utils/utils.dart';
 import 'package:whatsapp_flutter_ui/common/widgets/custom_button.dart';
 import 'package:country_pickers/country_pickers.dart';
@@ -36,12 +36,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: CountryPickerDialog(
           divider: const Divider(),
           isDividerEnabled: true,
-          itemBuilder: (Country _country) => Container(
-            child: Card(
-              child: Container(
-                padding: const EdgeInsets.all(5.0),
-                child: Text('+${_country.phoneCode} ${_country.name}'),
-              ),
+          // ignore: no_leading_underscores_for_local_identifiers
+          itemBuilder: (Country _country) => Card(
+            child: Container(
+              padding: const EdgeInsets.all(5.0),
+              child: Text('+${_country.phoneCode} ${_country.name}'),
             ),
           ),
           titlePadding: const EdgeInsets.all(8.0),

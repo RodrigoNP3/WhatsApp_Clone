@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_flutter_ui/features/auth/controller/auth_controller.dart';
 
-import '../../../colors.dart';
+import '../../../common/utils/colors.dart';
 
 class OTPScreen extends ConsumerWidget {
   final String verificationId;
+  // ignore: constant_identifier_names
   static const String RouteName = '/otp-screen';
 
   const OTPScreen({

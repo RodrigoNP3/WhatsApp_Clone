@@ -62,7 +62,23 @@ class CallController {
         hasDialled: false,
       );
 
-      callRepository.mekeCall(context, senderCallData, recieverCallData);
+      if (isGroupChat) {
+        callRepository.mekeGroupCall(
+          context,
+          senderCallData,
+          recieverCallData,
+        );
+      } else {
+        callRepository.mekeCall(context, senderCallData, recieverCallData);
+      }
     });
+  }
+
+  void endCall(
+    BuildContext context,
+    String callerId,
+    String recieverId,
+  ) {
+    callRepository.endCall(context, callerId, recieverId);
   }
 }

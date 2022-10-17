@@ -39,7 +39,7 @@ class _SelectContactsGroupState extends ConsumerState<SelectContactsGroup> {
               itemCount: contactsList.length,
               itemBuilder: (context, index) {
                 final contact = contactsList[index];
-                print(selectedContacts);
+                // print(selectedContacts);
                 return InkWell(
                   onTap: () => selectContact(index, contact),
                   child: Padding(

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_flutter_ui/common/widgets/error.dart';
 import 'package:whatsapp_flutter_ui/features/landing/screens/landing_screen.dart';
-import 'package:whatsapp_flutter_ui/features/status/repository/status_repository.dart';
+
 import 'package:whatsapp_flutter_ui/firebase_options.dart';
 import 'package:whatsapp_flutter_ui/router.dart';
-import 'package:whatsapp_flutter_ui/screens/mobile_layout_screen.dart';
-import 'colors.dart';
+import 'package:whatsapp_flutter_ui/mobile_layout_screen.dart';
+import 'common/utils/colors.dart';
 import './features/auth/controller/auth_controller.dart';
 import 'common/widgets/loader.dart';
 

@@ -138,13 +138,6 @@ class ChatRepository {
         'timeSent': DateTime.now().millisecondsSinceEpoch,
       });
     } else {
-      await firestore
-          .collection(Collections.users)
-          .doc(recieverUserId)
-          .collection(Collections.chats)
-          .doc(auth.currentUser!.uid)
-          .set(recieverChatContact.toMap());
-
       var senderChatContact = ChatContact(
         name: recieverChatContact.name,
         profilePic: recieverUserData!.profilePic,
@@ -152,6 +145,13 @@ class ChatRepository {
         timeSent: timeSent,
         lastMessage: text,
       );
+      await firestore
+          .collection(Collections.users)
+          .doc(recieverUserId)
+          .collection(Collections.chats)
+          .doc(auth.currentUser!.uid)
+          .set(recieverChatContact.toMap());
+
       await firestore
           .collection(Collections.users)
           .doc(auth.currentUser!.uid)
@@ -229,8 +229,9 @@ class ChatRepository {
     required bool isGroupChat,
   }) async {
     try {
-      var timeSent = DateTime.now();
+      final timeSent = DateTime.now();
       final messageId = const Uuid().v1();
+
       UserModel? recieverUserData;
 
       if (!isGroupChat) {
@@ -239,7 +240,7 @@ class ChatRepository {
             .doc(recieverUserId)
             .get();
         recieverUserData = UserModel.fromMap(userDataMap.data()!);
-      }
+      } else {}
 
       _saveDataToContactsSubcollection(
         senderUserData: senderUser,

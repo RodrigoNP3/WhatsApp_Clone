@@ -48,20 +48,94 @@ dependencies:
   agora_uikit: ^1.0.2
 ```
 
-1 create de podfile
-2 uncomment the line 2 
-platform :ios, '9.0'
-and chage it ttp:
-platform :ios, '11.0' 
-Firebase Setup:
+1 - Create e new projects ata firebase console.
 
-run pod install
+Create a new Flutter app;
 
-3 download google service por ios
-put it in the runner folder
+If you are having problems with that please, watch the following tutorial at 00:07:53.
+https://www.youtube.com/watch?v=yqwfP2vXWJQ&ab_channel=RivaanRanawat
+
+Add Phone authentication;
+
+Create a Firestore Database;
+
+Change the rules from:
+
+```bash
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if
+          request.time < timestamp.date(2022, 10, 31);
+    }
+  }
+}
+```
+
+Change to:
+
+```bash
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+Create a Storage Database;
+
+Change the rules from:
+
+```bash
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
+```
+
+Change to:
+
+```bash
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+Go to the project settings;
+
+On android app put your SHA1 certificate fingerprints,
+
+SHA1 certificate:
+
+To get your SHA1 key you have to run this command in your terminal:
+keytool -list -v -keystore ~.android\debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+if it dosn't work you can try put the full path: C:\Users\YOUR-USER.android...
+
+Download the google-services.json and put it in the android/app folder.
+android>app>google-services.json
+
+On IOS app
+Download the GoogleService-Info.plist and put it in the ios/Runner folder.
+ios>Runner>GoogleService-Info.plist
+
 open it and copy the reversed client id
 
- add the following lines in your info.plist file
+ put your reversed client id into your info.plist file
+  ```bash
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -73,13 +147,38 @@ open it and copy the reversed client id
 
 		</dict>
 	</array>
+```
 
-  4-CREATE AN ACCOUNT AS GIPHY.COM AND CREATE NEW PROJECT, CHOOSE SDK.
-  ADD YOUR GIPHY API KEY INTO THE UTILS FILE
+2 create the pod file
 
-  5 - 
-  ADD THE FOLLOWIND TO YOUR Podfile file
-  INSIDE post_instalation 
+got to ios folder and run
+pod install
+
+In your pod fole uncomment the line 2
+```bash
+platform :ios, '9.0'
+```
+and chage it :
+```bash
+platform :ios, '11.0' 
+```
+
+3 CREATE AN ACCOUNT AS GIPHY.COM AND CREATE NEW PROJECT, CHOOSE SDK.
+ADD YOUR GIPHY API KEY INTO THE lib/common/utils/utils.dart FILE
+
+```bash
+class AppConstants {
+  static final List<String> values = [
+    GIPHY_API_KEY,
+  ];
+  // ignore: non_constant_identifier_names
+  static String GIPHY_API_KEY = 'YOUR GIPHY API KEY HERE';
+
+}
+```
+
+4 ADD THE FOLLOWIND TO YOUR Podfile file
+INSIDE post_instalation 
 
   ```bash
 post_install do |installer|
@@ -100,41 +199,57 @@ post_install do |installer|
     # End of the permission_handler configuration
 ```
 
--6 INSIDE OF THE IOS FOLDER RUN pod install
+5 INSIDE OF THE IOS FOLDER RUN pod install
 
-7 - create an account at Agora.io
+6 create an account at Agora.io
 in the side menu click at  Project Manegement
 create a new project.
 in you console, on the project click in config,
-Anable the primary certificate,
+Enable the primary certificate,
+
 Go to the lib/config/AgoraConfig.dart file and put yout AppId and Primary certificate from agora.
+
+```bash
+class AgoraConfig {
+  static String appId = 'YOUR AGORA APP ID HERE';
+  static String appCertificate = 'YOUR AGORA APP CERTIFICATE HERE';
+}
+```
+
 Go to the whatsapp-server/main.go file and put yout AppId and Primary certificate from agora.(line 20 and 21)
 
+```bash
+func init() {
+	os.Setenv("APP_ID", "YOUR AGORA APP ID HERE")
+	os.Setenv("APP_CERTIFICATE", "YOUR AGORA APP CERTIFICATE HERE") 
+	// loads values from .env into the system
+	if err := godotenv.Load(); err != nil {
+		log.Print("No .env file found")
+	}
+}
+```
+
+7 - create a new git repository and add the whatsapp-server folder to it 
 
 8 - create an account at heroku.com 
 create a new app at the dashboard
+click at the project your just created
+go to deploy page and choose github, choose the whatsapp-server repository and deploy it. 
+Click in open app to get the BASE URL
 
-5 - Create an iOS app;
+```bash
+class AppConstants {
+  static final List<String> values = [
+    GIPHY_API_KEY,
+    baseUrl,
+  ];
+  // ignore: non_constant_identifier_names
+  static String GIPHY_API_KEY = 'YOUR GIPHY API KEY HERE';
+  static String baseUrl = 'YOUR HEROKU BASE URL HERE WITHOUT THE SLASH AT THE END';
+}
+```
 
-Apple bundle id:
-com.example.tiktokClone
-
-Download the GoogleService-Info.plist and put it in the Runner folder.
-
-ios>Runner>GoogleService-Info.plist
-
-You can skip the next iOS app creation steps.
-
-6 - Create an Android app;
-
-Android package name:
-com.example.tiktok_clone
-
-Download the google-services.json and put it in the app folder.
-
-android>app>google-services.json
-
-You can skip the next Android app creation steps.
+9 Run the app.
 
 ### Navigation
 
@@ -142,10 +257,10 @@ You can skip the next Android app creation steps.
 <table>
 <thead>
 <tr>
+<th align="center">Landing Screen</th>
 <th align="center">Login Screen</th>
-<th align="center">Register Screen</th>
-<th align="center">Feed</th>
-<th align="center">Search Screen</th>
+<th align="center">Select Country</th>
+<th align="center">OTP Screen</th>
 
 
 
@@ -155,35 +270,184 @@ You can skip the next Android app creation steps.
 <tr>
   
 <td align="center">
-  <a target="_blank" rel="" href="images/Login_screen.jpg">
-        <img src="images/Login_screen.jpg" alt="Css Logo" with="200" height="400"/>
+  <a target="_blank" rel="" href="images/1_landing_screen.jpg">
+        <img src="images/1_landing_screen.jpg" alt="Css Logo" with="200" height="400"/>
 
   </a></td>
   
 <td align="center">
-  <a target="_blank" rel="" href="images/Register_screen.jpg">
-        <img src="images/Register_screen.jpg" alt="Css Logo" with="200" height="400"/>
+  <a target="_blank" rel="" href="images/2_login_screen.jpg">
+        <img src="images/2_login_screen.jpg" alt="Css Logo" with="200" height="400"/>
 
   </a></td>
-  
+
+   <td align="center">
+  <a target="_blank" rel="" href="images/3_login_select_country_screen.jpg">
+        <img src="images/3_login_select_country_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+
  <td align="center">
-  <a target="_blank" rel="" href="images/Feed_screen_01.jpg">
-        <img src="images/Feed_screen_01.jpg" alt="Css Logo" with="200" height="400"/>
+  <a target="_blank" rel="" href="images/4_otp_screen.jpg">
+        <img src="images/4_otp_screen.jpg" alt="Css Logo" with="200" height="400"/>
 
   </a></td>
   
- <td align="center">
-  <a target="_blank" rel="" href="images/search_user_screen.jpg">
-        <img src="images/search_user_screen.jpg" alt="Css Logo" with="200" height="400"/>
 
-  </a></td>
 
-  
-
-<table>
+  <table>
 <thead>
 <tr>
-<th align="center">Add Video Screen</th>
-<th align="center">Add Video Screen</th>
-<th align="center">Comments Screen</th>
-<th align="center">Profile Screen</th>
+<th align="center">User Info Screen</th>
+<th align="center">Chats Screen</th>
+<th align="center">Contacts List Screen</th>
+<th align="center">Chat Screen</th>
+
+
+
+</tr>
+</thead>
+<tbody>
+<tr>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/5_user_info_screen.jpg">
+        <img src="images/5_user_info_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/6_chats_screen.jpg">
+        <img src="images/6_chats_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/7_contacts_screen.jpg">
+        <img src="images/7_contacts_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/8_chat_screen.jpg">
+        <img src="images/8_chat_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+
+  <table>
+<thead>
+<tr>
+<th align="center">Chat Emoji Keyboard</th>
+<th align="center">Chat GIF Keyboard</th>
+<th align="center">Chat Screen</th>
+<th align="center">Replay Message</th>
+
+
+
+</tr>
+</thead>
+<tbody>
+<tr>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/9_chat_emoji_keyboard_screen.jpg">
+        <img src="images/9_chat_emoji_keyboard_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/10_chat_gif_keyboard_screen.jpg">
+        <img src="images/10_chat_gif_keyboard_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/11_chat_screen.jpg">
+        <img src="images/11_chat_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/12_chat_replay_massage_screen.jpg">
+        <img src="images/12_chat_replay_massage_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+
+  <table>
+<thead>
+<tr>
+<th align="center">Chat Screen</th>
+<th align="center">Call Screen</th>
+<th align="center">Incoming Call Screen</th>
+<th align="center">Call Screen</th>
+
+
+
+</tr>
+</thead>
+<tbody>
+<tr>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/13_chat_screen.jpg">
+        <img src="images/13_chat_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/14_call_screen.jpg">
+        <img src="images/14_call_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/15_incoming_call_screen.jpg">
+        <img src="images/15_incoming_call_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/16_call_screen.jpg">
+        <img src="images/16_call_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+
+  <table>
+<thead>
+<tr>
+<th align="center">Confirm Status Screen</th>
+<th align="center">Status Screen</th>
+<th align="center">User Status Screen</th>
+<th align="center">User Status Screen</th>
+
+
+
+</tr>
+</thead>
+<tbody>
+<tr>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/17_confirm status_screen.jpg">
+        <img src="images/17_confirm status_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+<td align="center">
+  <a target="_blank" rel="" href="images/18_status_screen.jpg">
+        <img src="images/18_status_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/19_user_status_screen.jpg">
+        <img src="images/19_user_status_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+  
+ <td align="center">
+  <a target="_blank" rel="" href="images/20_user_status_screen.jpg">
+        <img src="images/20_user_status_screen.jpg" alt="Css Logo" with="200" height="400"/>
+
+  </a></td>
+

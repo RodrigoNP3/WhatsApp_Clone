@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:whatsapp_flutter_ui/colors.dart';
+import 'package:whatsapp_flutter_ui/common/utils/colors.dart';
 import 'package:whatsapp_flutter_ui/common/widgets/loader.dart';
 import 'package:whatsapp_flutter_ui/features/chat/controller/chat_controller.dart';
 import 'package:whatsapp_flutter_ui/features/chat/screens/mobile_chat_screen.dart';

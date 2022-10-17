@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_flutter_ui/common/repositories/common_firebase_storage.dart';
 import 'package:whatsapp_flutter_ui/common/utils/utils.dart';
 import 'package:whatsapp_flutter_ui/models/user_model.dart';
-import 'package:whatsapp_flutter_ui/screens/mobile_layout_screen.dart';
+import 'package:whatsapp_flutter_ui/mobile_layout_screen.dart';
 
 import '../screens/otp_screen.dart';
 import '../screens/user_information_screen.dart';
@@ -78,6 +78,7 @@ class AuthRepository {
 
       await auth.signInWithCredential(credential);
 
+      // ignore: use_build_context_synchronously
       Navigator.pushNamedAndRemoveUntil(
         context,
         UserInformationScreen.RouteName,

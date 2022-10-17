@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_flutter_ui/colors.dart';
+import 'package:whatsapp_flutter_ui/common/utils/colors.dart';
 import 'package:whatsapp_flutter_ui/features/status/controller/status_controller.dart';
 
+// ignore: must_be_immutable
 class ConfirmStatusScreen extends ConsumerWidget {
+  // ignore: constant_identifier_names
   static const String RouteName = '/confirm-status';
   final File file;
 
@@ -35,7 +37,7 @@ class ConfirmStatusScreen extends ConsumerWidget {
     aspectRatio();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Title'),
+        title: const Text('Status'),
       ),
       body: Center(
         child: AspectRatio(

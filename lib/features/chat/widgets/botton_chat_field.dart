@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -11,13 +9,14 @@ import 'package:whatsapp_flutter_ui/common/providers/message_replay_provider.dar
 import 'package:whatsapp_flutter_ui/common/utils/utils.dart';
 import 'package:whatsapp_flutter_ui/features/chat/controller/chat_controller.dart';
 
-import '../../../colors.dart';
+import '../../../common/utils/colors.dart';
 import '../../../common/enums/message_enum.dart';
 import 'message_replay_preview.dart';
 
 class BottonChatField extends ConsumerStatefulWidget {
   final String recieverUserId;
   final bool isGroupChat;
+
   const BottonChatField({
     Key? key,
     required this.recieverUserId,
@@ -104,6 +103,7 @@ class _ButtonChatFieldState extends ConsumerState<BottonChatField> {
     final gif = await pickGIF(context);
 
     if (gif != null) {
+      // ignore: use_build_context_synchronously
       ref.read(chatControllerProvider).sendGIFMessage(context, gif.url,
           widget.recieverUserId, MessageEnum.gif, widget.isGroupChat);
     }

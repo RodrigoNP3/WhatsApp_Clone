@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_flutter_ui/features/call/controller/call_controller.dart';
 import 'package:whatsapp_flutter_ui/models/call_model.dart';
 
+import 'call_screen.dart';
+
 class CallPickupScreen extends ConsumerWidget {
   final Widget scaffold;
   const CallPickupScreen({
@@ -20,10 +22,10 @@ class CallPickupScreen extends ConsumerWidget {
           CallModel call =
               CallModel.fromMap(snapshot.data!.data() as Map<String, dynamic>);
 
-          if (call.hasDialled) {
+          if (!call.hasDialled) {
             return Scaffold(
                 appBar: AppBar(
-                  title: const Text('Incomming call'),
+                  title: const Text('Incoming call'),
                 ),
                 body: Container(
                   alignment: Alignment.center,
@@ -65,7 +67,18 @@ class CallPickupScreen extends ConsumerWidget {
                           ),
                           const SizedBox(width: 25),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CallScreen(
+                                    channelId: call.callId,
+                                    call: call,
+                                    isGroupChat: false,
+                                  ),
+                                ),
+                              );
+                            },
                             icon: const Icon(
                               Icons.call,
                               color: Colors.greenAccent,

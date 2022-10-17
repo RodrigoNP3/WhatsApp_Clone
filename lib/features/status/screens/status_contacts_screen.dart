@@ -5,7 +5,7 @@ import 'package:whatsapp_flutter_ui/features/status/controller/status_controller
 import 'package:whatsapp_flutter_ui/features/status/screens/status_screen.dart';
 import 'package:whatsapp_flutter_ui/models/status_model.dart';
 
-import '../../../colors.dart';
+import '../../../common/utils/colors.dart';
 
 class StatusContactsScreen extends ConsumerWidget {
   const StatusContactsScreen({Key? key}) : super(key: key);

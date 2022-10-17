@@ -26,6 +26,7 @@ class SelectContactController {
     selectContactRepository.selectContact(selectedContact, context);
   }
 
+  // ignore: body_might_complete_normally_nullable
   List<Contact>? getRegistredContacts() {
     selectContactRepository.registredContacts;
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_flutter_ui/colors.dart';
+import 'package:whatsapp_flutter_ui/common/utils/colors.dart';
 import 'package:whatsapp_flutter_ui/features/auth/screens/login_screen.dart';
 
 import '../../../common/widgets/custom_button.dart';
@@ -38,7 +38,7 @@ class LandingScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(15.0),
               child: Text(
-                'Read out Privacy Policy. Tap \'Agreen and Continue\' to accept the Terms of Service.',
+                'Read out Privacy Policy. Tap \"Agree and Continue\" to accept the Terms of Service.',
                 style: TextStyle(color: greyColor),
                 textAlign: TextAlign.center,
               ),
@@ -47,7 +47,7 @@ class LandingScreen extends StatelessWidget {
             SizedBox(
               width: size.width * 0.75,
               child: CustomButton(
-                text: 'AGREEN AND CONTINUE',
+                text: 'AGREE AND CONTINUE',
                 onPressed: () => navigateToLoginScreen(context),
               ),
             ),

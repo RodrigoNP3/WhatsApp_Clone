@@ -115,14 +115,12 @@ class StatusRepository {
   }
 
   Future<List<StatusModel>> getStatus(BuildContext context) async {
-    print('11111111');
     List<StatusModel> statusData = [];
     List<Contact> contacts = [];
     try {
       if (await FlutterContacts.requestPermission()) {
         contacts = await FlutterContacts.getContacts(withProperties: true);
       }
-      print('22222222');
 
       for (var i = 0; i < contacts.length; i++) {
         var statusSnapshot = await firestore
@@ -137,25 +135,19 @@ class StatusRepository {
                     .millisecondsSinceEpoch)
             .get();
         if (statusSnapshot.docs.isEmpty) {
-          print('ESTA VAZIO');
-        } else if (statusSnapshot.docs.isNotEmpty) {
-          print('NÃO ESTA VAZIO');
-        }
+        } else if (statusSnapshot.docs.isNotEmpty) {}
         for (var tempData in statusSnapshot.docs) {
-          print('333333333');
           var tempStatus = StatusModel.fromMap(tempData.data());
-          // print(tempStatus.username);
+
           if (tempStatus.whoCanSee.contains(auth.currentUser!.uid)) {
             statusData.add(tempStatus);
-            print('4444444');
-            // print(tempStatus.username);
           }
         }
       }
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
-    print(statusData);
+
     return statusData;
   }
 }

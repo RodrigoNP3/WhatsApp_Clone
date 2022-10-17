@@ -5,9 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_flutter_ui/common/utils/utils.dart';
 import 'package:whatsapp_flutter_ui/features/auth/controller/auth_controller.dart';
 
-import '../../../screens/mobile_layout_screen.dart';
-
 class UserInformationScreen extends ConsumerStatefulWidget {
+  // ignore: constant_identifier_names
   static const String RouteName = '/user-information';
   const UserInformationScreen({Key? key}) : super(key: key);
 

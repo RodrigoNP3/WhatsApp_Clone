@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:whatsapp_flutter_ui/features/auth/screens/login_screen.dart';
 import 'package:whatsapp_flutter_ui/features/auth/screens/user_information_screen.dart';
 import 'package:whatsapp_flutter_ui/features/group/screens/create_group_screen.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_flutter_ui/colors.dart';
+import 'package:whatsapp_flutter_ui/common/utils/colors.dart';
 import 'package:whatsapp_flutter_ui/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_flutter_ui/features/call/controller/call_controller.dart';
 import 'package:whatsapp_flutter_ui/features/chat/widgets/chat_list.dart';
@@ -10,6 +10,7 @@ import '../../call/screens/call_pickup_screen.dart';
 import '../widgets/botton_chat_field.dart';
 
 class MobileChatScreen extends ConsumerWidget {
+  // ignore: constant_identifier_names
   static const String RouteName = '/mobile-chat';
   final String name;
   final String uid;
