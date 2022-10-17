@@ -11,8 +11,9 @@ class AppConstants {
     baseUrl,
   ];
   // ignore: non_constant_identifier_names
-  static String GIPHY_API_KEY = '6v5NxEjpkS4AI8ABvO4it2VGwRzYhwkO';
-  static String baseUrl = 'https://whatsapp-clone-flutter-udemy.herokuapp.com';
+  static String GIPHY_API_KEY = 'YOUR GIPHY API KEY HERE';
+  static String baseUrl =
+      'YOUR HEROKU BASE URL HERE WITHOUT THE SLASH AT THE END';
 }
 
 showSnackBar({required BuildContext context, required String content}) {

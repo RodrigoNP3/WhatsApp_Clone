@@ -2,7 +2,7 @@
 
 Hello there.
 This is a WhatsApp clone developed in flutter.
-This app is being developed according to the classes of:
+This app was developed according to the classes of:
 
 Flutter & Firebase Tutorial: Build 5 Social Media Apps - UDEMY;
 
